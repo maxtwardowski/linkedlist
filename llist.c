@@ -12,7 +12,7 @@ Node * init();
 int length(Node * list);
 void display(Node * list);
 void push(Node ** list, char * str);
-Node * pop(Node * list);
+const char * pop(Node * list);
 void destroy(Node * list);
 void append(Node * list, char * str);
 Node * copy(Node * list);
@@ -27,9 +27,10 @@ int main(int argc, char const *argv[]) {
     append(mylist, "ks");
     push(&mylist, "njondjkloq2wenlfqe");
     display(mylist);
-    Node * lol = copy(mylist);
-    display(lol);
-    destroy(lol);
+    pop(mylist);
+    pop(mylist);
+    pop(mylist);
+    display(mylist);
     destroy(mylist);
     return 0;
 }
@@ -70,6 +71,22 @@ void push(Node ** list, char * str) {
         node -> next = * list;
         * list = node;
     }
+}
+
+const char * pop(Node * list) {
+    Node * node = list;
+    while (true) {
+        if (node -> next -> next != NULL)
+            node = node -> next;
+        else
+            break;
+    }
+    char val[50];
+    strcpy(val, node -> next -> string);
+    const char * storedval = val;
+    free(node -> next);
+    node -> next = NULL;
+    return storedval;
 }
 
 void destroy(Node * list) {
