@@ -7,6 +7,15 @@ typedef struct Node {
 } Node;
 
 Node * init();
+int length(Node * list);
+void display(Node * list);
+void push(Node * list);
+Node * pop(Node * list);
+void destroy(Node * list);
+void append(Node * list);
+Node * copy(Node * list);
+void reverse(Node * list);
+void sort(Node * list);
 
 int main(int argc, char const *argv[]) {
 
