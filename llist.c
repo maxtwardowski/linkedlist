@@ -25,7 +25,11 @@ int main(int argc, char const *argv[]) {
     append(mylist, "chuj");
     append(mylist, "dupa");
     append(mylist, "ks");
+    push(&mylist, "njondjkloq2wenlfqe");
     display(mylist);
+    Node * lol = copy(mylist);
+    display(lol);
+    destroy(lol);
     destroy(mylist);
     return 0;
 }
@@ -91,7 +95,13 @@ void append(Node * list, char * str) {
 }
 
 Node * copy(Node * list) {
-    Node * duplicate = malloc(sizeof(Node));
-    memcpy(duplicate, list, sizeof(Node));
+    Node * duplicate = init();
+    Node * node = list;
+    append(duplicate, node -> string);
+    do {
+        node = node -> next;
+        append(duplicate, node -> string);
+    } while (node -> next != NULL);
+
     return duplicate;
 }
