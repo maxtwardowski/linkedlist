@@ -17,6 +17,7 @@ void destroy(Node * list);
 void append(Node * list, char * str);
 Node * copy(Node * list);
 void reverse(Node ** list);
+void swapdata(Node * a, Node * b);
 void sort(Node * list);
 
 int main(int argc, char const *argv[]) {
@@ -27,7 +28,8 @@ int main(int argc, char const *argv[]) {
     append(mylist, "ks");
     push(&mylist, "njondjkloq2wenlfqe");
     display(mylist);
-    reverse(&mylist);
+    printf("===========\n");
+    sort(mylist);
     display(mylist);
     destroy(mylist);
     return 0;
@@ -127,4 +129,29 @@ void reverse(Node ** list) {
         current = next;
     }
     * list = previous;
+}
+
+void swapdata(Node * a, Node * b) {
+    char data[50];
+    strcpy(data, a -> string);
+    strcpy(a -> string, b -> string);
+    strcpy(b -> string, data);
+}
+
+void sort(Node * list) {
+    bool iterneeded = true;
+    Node * node = list;
+
+    while (iterneeded) {
+        iterneeded = false;
+        node = list;
+        while (node -> next != NULL) {
+            if (strcmp(node -> string, node -> next -> string) > 0) {
+                iterneeded = true;
+                swapdata(node, node -> next);
+            }
+            node = node -> next;
+        }
+    }
+
 }
