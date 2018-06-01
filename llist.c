@@ -16,7 +16,7 @@ const char * pop(Node * list);
 void destroy(Node * list);
 void append(Node * list, char * str);
 Node * copy(Node * list);
-void reverse(Node * list);
+void reverse(Node ** list);
 void sort(Node * list);
 
 int main(int argc, char const *argv[]) {
@@ -27,9 +27,7 @@ int main(int argc, char const *argv[]) {
     append(mylist, "ks");
     push(&mylist, "njondjkloq2wenlfqe");
     display(mylist);
-    pop(mylist);
-    pop(mylist);
-    pop(mylist);
+    reverse(&mylist);
     display(mylist);
     destroy(mylist);
     return 0;
@@ -90,8 +88,7 @@ const char * pop(Node * list) {
 }
 
 void destroy(Node * list) {
-    Node * node = list;
-    Node * curr;
+    Node * node = list, * curr;
     while ((curr = node) != NULL) {
         node = node -> next;
         free(curr);
@@ -112,13 +109,22 @@ void append(Node * list, char * str) {
 }
 
 Node * copy(Node * list) {
-    Node * duplicate = init();
-    Node * node = list;
+    Node * duplicate = init(), * node = list;
     append(duplicate, node -> string);
     do {
         node = node -> next;
         append(duplicate, node -> string);
     } while (node -> next != NULL);
-
     return duplicate;
+}
+
+void reverse(Node ** list) {
+    Node * previous = NULL, * current = * list, * next = NULL;
+    while (current != NULL) {
+        next  = current -> next;
+        current -> next = previous;
+        previous = current;
+        current = next;
+    }
+    * list = previous;
 }
