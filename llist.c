@@ -19,19 +19,27 @@ Node * copy(Node * list);
 void reverse(Node ** list);
 void swapdata(Node * a, Node * b);
 void sort(Node * list);
+char *strdup(const char *str);
 
 int main(int argc, char const *argv[]) {
     Node * mylist = init();
-    append(mylist, "kurwa");
-    append(mylist, "chuj");
-    append(mylist, "dupa");
-    append(mylist, "ks");
-    push(&mylist, "njondjkloq2wenlfqe");
+    append(mylist, "some string");
+    append(mylist, "hahaiuwekjfbjwe");
+    append(mylist, "abcdef");
+    append(mylist, "wegmemg");
+    push(&mylist, "eee");
     display(mylist);
     printf("===========\n");
     sort(mylist);
     display(mylist);
+    const char * st = pop(mylist);
+    printf("%s\n", st);
+    const char * st2 = pop(mylist);
+    printf("%s\n", st);
+    printf("%s\n", st2);
     destroy(mylist);
+    free((void *) st2);
+    free((void *) st);
     return 0;
 }
 
@@ -81,12 +89,11 @@ const char * pop(Node * list) {
         else
             break;
     }
-    char val[50];
-    strcpy(val, node -> next -> string);
-    const char * storedval = val;
+    const char * val = node -> next -> string;
+    char * val2ret = strdup(val);
     free(node -> next);
     node -> next = NULL;
-    return storedval;
+    return val2ret;
 }
 
 void destroy(Node * list) {
@@ -146,12 +153,22 @@ void sort(Node * list) {
         iterneeded = false;
         node = list;
         while (node -> next != NULL) {
-            if (strcmp(node -> string, node -> next -> string) > 0) {
+            if (strcmp(node -> string, node -> next -> string) >   0) {
                 iterneeded = true;
                 swapdata(node, node -> next);
             }
             node = node -> next;
         }
     }
+}
 
+char *strdup(const char *str)
+{
+    int n = strlen(str) + 1;
+    char *dup = malloc(n);
+    if(dup)
+    {
+        strcpy(dup, str);
+    }
+    return dup;
 }
